@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import './dashboard.dart';
+import 'package:flutter_app/main.dart';
+import 'dashboard.dart';
+import 'package:flutter_app/jobs/search.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  
 
   @override
   void initState() {
@@ -310,12 +313,12 @@ class MapScreenState extends State<ProfilePage>
         ));
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the Widget is disposed
-    myFocusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Clean up the controller when the Widget is disposed
+  //   myFocusNode.dispose();
+  //   super.dispose();
+  // }
 
   Widget _getActionButtons() {
     return Padding(
@@ -336,8 +339,8 @@ class MapScreenState extends State<ProfilePage>
                       setState(() {
                         _status = true;
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => DashboardTwoPage()));
+                        Navigator.pop(context);
+                         
                       });
                     },
                     shape: new RoundedRectangleBorder(
@@ -358,6 +361,7 @@ class MapScreenState extends State<ProfilePage>
                       setState(() {
                         _status = true;
                         FocusScope.of(context).requestFocus(new FocusNode());
+                        Navigator.pop(context);
                       });
                     },
                     shape: new RoundedRectangleBorder(

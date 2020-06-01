@@ -10,6 +10,13 @@
 // import 'dart:convert';
 // import './search.dart';
 // class GeneralJobs extends StatefulWidget {
+//    GeneralJobs({Key key, this.tok,this.first,this.second,this.third,this.fourth}) : super(key: key);
+// final String tok;
+// final String first;
+// final String second;
+// final String third;
+// final String fourth;
+
 
 //   @override
 //   _GeneralJobsState createState() => _GeneralJobsState();
@@ -23,16 +30,26 @@
 // //  List<QuestionList> questionList;
 // //  List<Question> question;
 
-//   Future<void> fetchJobs() async {
-//     final response = await http.get(
-//       'http://harshraj.pythonanywhere.com/organization/list-of-job',
-//       headers: {HttpHeaders.authorizationHeader: "token 5bd815bd7dd3672a0a6649b5e8873a2df8ceb73"},
-//     );
-//     var responseJson = json.decode(response.body);
-//     print(responseJson);
-
-//     genJobs = generalJobs.fromJson(responseJson);
-//     data = genJobs.data;
+//   Future<void> updaterecommjobs() async
+//   {
+      
+     
+//        Map data = {
+//       'first': widget.first.toString(),
+//       'Second': widget.second.toString(),
+//       'third':widget.third.toString(),
+//       'fourth':widget.fourth.toString(),
+//        };
+//        var jsonResponse = null;
+//        var response = await http.post("http://harshraj.pythonanywhere.com/organization/get-jobs", body: data,headers: {HttpHeaders.authorizationHeader:"token ${widget.tok}"});
+//        if(response.statusCode == 200)
+//        {
+//          jsonResponse = json.decode(response.body);
+//       print('Response status: ${response.statusCode}');
+//       print('Response body: ${response.body}');
+//        }
+//        else
+//        print("Error");
 
 //   }
 
@@ -50,10 +67,10 @@
 //       ),
 //       body:
 //       RefreshIndicator(
-//         onRefresh: fetchJobs,
+//         onRefresh: updaterecommjobs,
 //         child:
 //         new FutureBuilder(
-//           future: fetchJobs(),
+//           future: updaterecommjobs(),
 //           builder: (BuildContext context, AsyncSnapshot snapshot){
 //             switch(snapshot.connectionState){
 //               case ConnectionState.none:
@@ -93,7 +110,8 @@
 //           ),
 //           RaisedButton(
 //             onPressed: (){
-//               fetchJobs();
+//               //fetchJobs();
+//               updaterecommjobs();
 //               setState(() {
 
 //               });
@@ -111,9 +129,9 @@
 
 //   ListView questionsList(){
 //     return ListView.builder(
-//       itemCount: data.length,
+//       itemCount: 2,
 //       itemBuilder: (context,i,)=>Card(
-//         color: Colors.blue,
+//         color: Colors.greenAccent,
 //         elevation: 0.0,
 //         child: Padding(
 //           padding: const EdgeInsets.all(8.0),
@@ -128,7 +146,8 @@
 //                 // {
 //                 //       new Text(questionList[i].questionText,style: new TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),),
 //                 // },
-//                 new Text(data[i].jobTitle,style: new TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),),
+//                // new Text(data[i].jobTitle,style: new TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),),
+//                Text("bdfhb"),
 //                 //new Text(questionList[i].question[i].answerText),
 
 //                 FittedBox(
@@ -165,7 +184,8 @@
 //             ),
 
 //             children: <Widget>[
-//                 JobDetail(data[i].jobDescreption, data[i].minimumExperience, data[i].id),
+//               Text("kk"),
+//                 //JobDetail(data[i].jobDescreption, data[i].minimumExperience, data[i].id),
 // //              AnswerWidget(questionList[i].question,questionList[i].question[0].answerText,questionList[i].question[0].weightage,0,questionList[i].question[0].fromDomain),
 // //              AnswerWidget(questionList[i].question,questionList[i].question[1].answerText,questionList[i].question[1].weightage,1,questionList[i].question[1].fromDomain),
 //               // AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[2].weightage,2,questionList[i].question[1].fromDomain),

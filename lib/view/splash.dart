@@ -14,25 +14,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // Future checkFirstSeen() async {
-  //       SharedPreferences prefs = await SharedPreferences.getInstance();
-  //       bool _seen = (prefs.getBool('seen') ?? false);
-
-  //       if (_seen) {
-  //       Navigator.of(context).pushReplacement(
-  //           new MaterialPageRoute(builder: (context) => new MainPage()));
-  //       } else {
-  //       await prefs.setBool('seen', true);
-  //       Navigator.of(context).pushReplacement(
-  //           new MaterialPageRoute(builder: (context) => new OnboardingScreen()));
-  //       }
-  //   }
+ 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
    // checkFirstSeen();
-    Timer(Duration(seconds: 5), () => Navigator.push(context, MaterialPageRoute(builder: (context) => OnboardingScreen())));
+    Timer(Duration(seconds: 8), () => Navigator.push(context, MaterialPageRoute(builder: (context) => OnboardingScreen())));
     
   }
 
@@ -87,12 +75,12 @@ class _SplashScreenState extends State<SplashScreen> {
                       padding: EdgeInsets.only(top: 20.0),
                     ),
                     Text(
-                      "welcome",
+                      "Find Your Perfect Job",
                       softWrap: true,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
+                          fontSize: 25.0,
                           color: Colors.white),
                     )
                   ],

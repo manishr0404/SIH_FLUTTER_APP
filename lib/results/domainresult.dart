@@ -9,12 +9,13 @@ import 'package:flutter_app/questions/domain_specific.dart';
  import 'package:flutter_app/questions/question_level3_domain.dart';
  
 class ResDomPage extends StatefulWidget {
-ResDomPage({Key key, this.resmarks1,this.resmarks2,this.round,this.previousround,this.maximum}) : super(key: key);
+ResDomPage({Key key, this.resmarks1,this.resmarks2,this.round,this.previousround,this.maximum,this.usertokenvar}) : super(key: key);
 final int resmarks1;
 final int resmarks2;
 final String round;
 final String previousround;
 final String maximum;
+final String usertokenvar;
 
 
   _ResDomPageState createState() => _ResDomPageState();
@@ -41,7 +42,7 @@ class _ResDomPageState extends State<ResDomPage> {
       'Total':total,
        };
        var jsonResponse = null;
-       var response = await http.post("http://harshraj.pythonanywhere.com/candidate/put-domain-marks/", body: data,headers: {HttpHeaders.authorizationHeader:"token 4c136b7dbd75a637a1248db3be44c20a5a20a9ee"});
+       var response = await http.post("http://harshraj.pythonanywhere.com/candidate/put-domain-marks/", body: data,headers: {HttpHeaders.authorizationHeader:"token ${widget.usertokenvar}"});
        if(response.statusCode == 200)
        {
          jsonResponse = json.decode(response.body);
@@ -124,7 +125,7 @@ class _ResDomPageState extends State<ResDomPage> {
                     
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LevelPage()),   /// HAVE TO WORK ON IT FOR DYNAMIC
+                      MaterialPageRoute(builder: (context) => LevelPage(tok: widget.usertokenvar,)),   /// HAVE TO WORK ON IT FOR DYNAMIC
                     );
                   },
                   textColor: Colors.white,

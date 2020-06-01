@@ -9,12 +9,13 @@ import 'package:flutter_app/questions/domain_specific.dart';
  import 'package:flutter_app/questions/question_level3_domain.dart';
  
 class ResPage extends StatefulWidget {
-ResPage({Key key, this.resmarks1,this.resmarks2,this.round,this.previousround,this.maximum}) : super(key: key);
+ResPage({Key key, this.resmarks1,this.resmarks2,this.round,this.previousround,this.maximum,this.token}) : super(key: key);
 final int resmarks1;
 final int resmarks2;
 final String round;
 final String previousround;
 final String maximum;
+final String token;
 
 
   _ResPageState createState() => _ResPageState();
@@ -58,7 +59,7 @@ class _ResPageState extends State<ResPage> {
       'Total':total,
        };
        var jsonResponse = null;
-       var response = await http.post("http://harshraj.pythonanywhere.com/candidate/put-general-marks/", body: data,headers: {HttpHeaders.authorizationHeader:"token 4c136b7dbd75a637a1248db3be44c20a5a20a9ee"});
+       var response = await http.post("http://harshraj.pythonanywhere.com/candidate/put-general-marks/", body: data,headers: {HttpHeaders.authorizationHeader:"token ${widget.token}"});
        if(response.statusCode == 200)
        {
          jsonResponse = json.decode(response.body);
@@ -146,7 +147,7 @@ class _ResPageState extends State<ResPage> {
                     // );
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage1(maxdomain: widget.maximum,)),   /// HAVE TO WORK ON IT FOR DYNAMIC
+                      MaterialPageRoute(builder: (context) => HomePage1(maxdomain: widget.maximum,token: widget.token,)),   /// HAVE TO WORK ON IT FOR DYNAMIC
                     );
                   },
                   textColor: Colors.white,

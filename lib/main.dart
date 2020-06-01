@@ -1,6 +1,6 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-
+import 'package:flutter_app/results/finalresult.dart';
 import 'package:flutter_app/questions/general_question.dart';
 import 'package:flutter_app/view/login.dart';
 import 'package:flutter/material.dart';
@@ -104,12 +104,13 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body:
+      body:Center(child: Main1Page(usertoken:"${widget.usertok}",),),
+      //Main1Page(usertoken: "${widget.usertok}",),
       // SearchPage(),
       //ProfilePage(),
       //GeneralJobs(),
       //HomePage(),
-     DashboardTwoPage(usertoken: widget.usertok ,),
+    // DashboardTwoPage(usertoken: widget.usertok ,),
       //Center(child: DashboardTwoPage() ),
       drawer: Drawer(
         child: new ListView(
@@ -128,7 +129,7 @@ class _MainPageState extends State<MainPage> {
             ),
             new Divider(),
             new ListTile(
-              title: new Text("Profile"),
+              title: new Text("Profile(IN PROGRESS)"),
               trailing: new Icon(Icons.person),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
                 builder: (BuildContext context) => ProfilePage(),
@@ -136,12 +137,21 @@ class _MainPageState extends State<MainPage> {
             ),
             new Divider(),
             new ListTile(
-              title: new Text("Job Recommendation Quiz"),
+              title: new Text("Job Recommendation Quiz ${widget.usertok}"),
               trailing: new Icon(Icons.question_answer),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                builder: (BuildContext context) => HomePage(),
+                builder: (BuildContext context) => HomePage(usertokvar: "${widget.usertok}",),
               )),
             ),
+             new Divider(),
+            new ListTile(
+              title: new Text("Feedback(IN PROGRESS)"),
+              trailing: new Icon(Icons.rate_review),
+              // onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+              //   builder: (BuildContext context) => ItemReviewsPage(),
+              // )),
+            ),
+            
 
           ],
         ),

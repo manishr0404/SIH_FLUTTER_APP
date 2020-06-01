@@ -15,8 +15,9 @@ import 'package:http/http.dart';
 import 'package:flutter_app/questions/domain_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class HomePage1 extends StatefulWidget {
-   HomePage1({Key key, this.maxdomain}) : super(key: key);
+   HomePage1({Key key, this.maxdomain,this.token}) : super(key: key);
 final String maxdomain;
+final String token;
   
   @override
   _HomePageState1 createState() => _HomePageState1();
@@ -147,8 +148,8 @@ class _HomePageState1 extends State<HomePage1> {
             
               children: <Widget>[
                 //Text("zsjfjs"),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[0].answerText,data[i].questionDomain[0].weightage,0,data[i].questionDomain[0].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[1].answerText,data[i].questionDomain[1].weightage,1,data[i].questionDomain[1].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain),
+                AnswerWidget(data[i].questionDomain,data[i].questionDomain[0].answerText,data[i].questionDomain[0].weightage,0,data[i].questionDomain[0].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain,widget.token),
+                AnswerWidget(data[i].questionDomain,data[i].questionDomain[1].answerText,data[i].questionDomain[1].weightage,1,data[i].questionDomain[1].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain,widget.token),
              //   AnswerWidget(data[i].questionDomain,data[i].questionDomain[2].answerText,data[i].questionDomain[2].weightage,2,data[i].questionDomain[2].fromDomain,mark1,mark2),
 
               ],
@@ -185,11 +186,12 @@ class AnswerWidget extends StatefulWidget {
   final List bj;
   final List glob;
   final String domaindata;
+  final String usertok;
 
    
   //final int id;
   
- AnswerWidget(this.questionDomain,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.aj,this.bj,this.glob,this.domaindata);
+ AnswerWidget(this.questionDomain,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.aj,this.bj,this.glob,this.domaindata,this.usertok);
 
   @override
   _AnswerWidgetState createState() => _AnswerWidgetState();
@@ -303,7 +305,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
  {
    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: finaltotal,round: "3rd",previousround: "2nd",maximum: max,),),
+                     MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: finaltotal,round: "3rd",previousround: "2nd",maximum: max,usertokenvar: widget.usertok,),),
                    );
  }
  else
@@ -312,13 +314,13 @@ class _AnswerWidgetState extends State<AnswerWidget> {
     {
        Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) =>HomePage1(maxdomain: 2.toString(),)),
+                     MaterialPageRoute(builder: (context) =>HomePage1(maxdomain: 2.toString(),token: widget.usertok,)),
                    );
     }
      else{
         Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) =>HomePage1(maxdomain: 1.toString(),)),
+                     MaterialPageRoute(builder: (context) =>HomePage1(maxdomain: 1.toString(),token: widget.usertok)),
                    );
      }
  }

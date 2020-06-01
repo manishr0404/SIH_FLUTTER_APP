@@ -1,5 +1,5 @@
 import 'dart:ffi';
-import 'dart:js_util';
+
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/Total/general_total.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +13,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/results/genresult.dart';
 
 class HomePage extends StatefulWidget {
+  HomePage({Key key, this.usertokvar}) : super(key: key);
+final String usertokvar;
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -20,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var mark1 = new List();
   var mark2 = new List();
+  
  
  
   int total1;
@@ -104,8 +108,8 @@ class _HomePageState extends State<HomePage> {
                 //questionsList();
                 
             }
-            return Text("hellofhgfhkhv",textScaleFactor: 50.0,);
-            //Container(height:10.0,width:20.0);
+            return null;
+            
           },
         ),
       ),
@@ -212,9 +216,9 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                  
                 
-                AnswerWidget(questionList[i].question,questionList[i].question[0].answerText,questionList[i].question[0].weightage,0,questionList[i].question[0].fromDomain,mark1,mark2,total1,),
-                AnswerWidget(questionList[i].question,questionList[i].question[1].answerText,questionList[i].question[1].weightage,1,questionList[i].question[1].fromDomain,mark1,mark2,total1,),
-                AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[2].weightage,2,questionList[i].question[2].fromDomain,mark1,mark2,total1,),
+                AnswerWidget(questionList[i].question,questionList[i].question[0].answerText,questionList[i].question[0].weightage,0,questionList[i].question[0].fromDomain,mark1,mark2,total1,widget.usertokvar),
+                AnswerWidget(questionList[i].question,questionList[i].question[1].answerText,questionList[i].question[1].weightage,1,questionList[i].question[1].fromDomain,mark1,mark2,total1,widget.usertokvar),
+                AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[2].weightage,2,questionList[i].question[2].fromDomain,mark1,mark2,total1,widget.usertokvar),
                 //AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[3].weightage,3,questionList[i].question[3].fromDomain),
                  
 
@@ -261,12 +265,13 @@ class AnswerWidget extends StatefulWidget {
   final List mj;
   final List dj;
   final int tot1;
+  final String tokenvariable;
   
  
    
   //final int id;
   
- AnswerWidget(this.question,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.tot1,);
+ AnswerWidget(this.question,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.tot1,this.tokenvariable);
 
   @override
   _AnswerWidgetState createState() => _AnswerWidgetState();
@@ -339,7 +344,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   }
    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) => ResPage(resmarks1: total1,resmarks2:total2,round: "2nd",previousround: "1st",maximum: max,),),
+                     MaterialPageRoute(builder: (context) => ResPage(resmarks1: total1,resmarks2:total2,round: "2nd",previousround: "1st",maximum: max,token: widget.tokenvariable,),),
                    );
 
 }
@@ -371,7 +376,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                  widget.dj.add("${widget.question[widget.index].weightage.toInt()}");
                  widget.dj.toList();
                  print(widget.dj);
-                //print(widget.question[widget.index].weightage.toInt());
+                
                }
               
                

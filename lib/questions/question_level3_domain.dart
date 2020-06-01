@@ -5,9 +5,14 @@ import 'package:flutter_app/questions/question_level3_domain_model.dart';
 import 'package:flutter_app/questions/model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_app/results/finalresult.dart';
 
 
 class LevelPage extends StatefulWidget {
+   LevelPage({Key key, this.tok}) : super(key: key);
+final String tok;
+
+
   
   @override
   _LevelPageState createState() => _LevelPageState();
@@ -156,10 +161,10 @@ class _LevelPageState extends State<LevelPage> {
             
               children: <Widget>[
                 //Text("zsjfjs"),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[0].answerText,data[i].questionDomain[0].weightage,0,data[i].questionDomain[0].subDomain,mark1,mark2,globalmarks,),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[1].answerText,data[i].questionDomain[1].weightage,1,data[i].questionDomain[1].subDomain,mark1,mark2,globalmarks),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[2].answerText,data[i].questionDomain[2].weightage,2,data[i].questionDomain[2].subDomain,mark1,mark2,globalmarks),
-                 AnswerWidget(data[i].questionDomain,data[i].questionDomain[3].answerText,data[i].questionDomain[3].weightage,3,data[i].questionDomain[3].subDomain,mark1,mark2,globalmarks),
+                AnswerWidget(data[i].questionDomain,data[i].questionDomain[0].answerText,data[i].questionDomain[0].weightage,0,data[i].questionDomain[0].subDomain,mark1,mark2,globalmarks,widget.tok),
+                AnswerWidget(data[i].questionDomain,data[i].questionDomain[1].answerText,data[i].questionDomain[1].weightage,1,data[i].questionDomain[1].subDomain,mark1,mark2,globalmarks,widget.tok),
+                AnswerWidget(data[i].questionDomain,data[i].questionDomain[2].answerText,data[i].questionDomain[2].weightage,2,data[i].questionDomain[2].subDomain,mark1,mark2,globalmarks,widget.tok),
+                 AnswerWidget(data[i].questionDomain,data[i].questionDomain[3].answerText,data[i].questionDomain[3].weightage,3,data[i].questionDomain[3].subDomain,mark1,mark2,globalmarks,widget.tok),
 
 
               ],
@@ -193,11 +198,12 @@ class AnswerWidget extends StatefulWidget {
    final List mj;
   final List dj;
   final List glob;
+  final String tokvar;
 
    
   //final int id;
   
- AnswerWidget(this.questionDomain,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.glob);
+ AnswerWidget(this.questionDomain,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.glob,this.tokvar);
 
   @override
   _AnswerWidgetState createState() => _AnswerWidgetState();
@@ -233,15 +239,16 @@ class _AnswerWidgetState extends State<AnswerWidget> {
       },
     );
   }
-  int getArraySum(List<dynamic> a,List<dynamic> b){
+  int getArraySum(List<dynamic> a,List<dynamic> b,List<dynamic> x){
     int i = 0;
     int j;
     
     var subdomaintotal = new List<int>();
-
+   
+   var e = x.length;
     var c = List<int>(b.length);
     var d =  List<int>(a.length);
-   
+    
     int total1 = 0;
     int total2 = 0;
     
@@ -283,8 +290,37 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   {                                                                     
     finaltotal += subdomaintotal[i];
   }
+ double rating = (finaltotal/e);
+ int rate = rating.ceil();
  print(finaltotal);
- threshold = (finaltotal * 0.70).floor();                                    // LOGIC IS WRONG HAVE TO CHANGE LATER
+                                                                      // LOGIC IS WRONG HAVE TO CHANGE LATER
+  
+  if(total1 > total2)
+  {
+     Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: total1,previousround: "3rd",maximum: 1.toString(),token: widget.tokvar, ),),
+                   );
+  }
+  else{
+    Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: total2,previousround: "3rd",maximum: 2.toString(),token:widget.tokvar),),
+                   );
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
    
   }
@@ -357,7 +393,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                if(widget.glob.length == 20)
                {
                  setState(() {
-                   getArraySum(widget.mj, widget.dj,);
+                   getArraySum(widget.mj, widget.dj,widget.glob);
                  });
                }
 
