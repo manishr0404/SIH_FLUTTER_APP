@@ -72,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
       print('Response body: ${response.body}');
       if (jsonResponse != null) {
         setState(() {
+          
           Navigator.pop(context);
       //      Navigator.of(context).pushAndRemoveUntil(
       //       MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (
@@ -85,14 +86,17 @@ class _SignUpPageState extends State<SignUpPage> {
           _isLoading = false;
         });
         print(response.body);
+        
       }
 
     }
     else
     {
       print("error");
+     
     }
   }
+   
   Container buttonSection() {
     return Container(
 

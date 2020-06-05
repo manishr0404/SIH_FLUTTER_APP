@@ -148,8 +148,8 @@ class _HomePageState1 extends State<HomePage1> {
             
               children: <Widget>[
                 //Text("zsjfjs"),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[0].answerText,data[i].questionDomain[0].weightage,0,data[i].questionDomain[0].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain,widget.token),
-                AnswerWidget(data[i].questionDomain,data[i].questionDomain[1].answerText,data[i].questionDomain[1].weightage,1,data[i].questionDomain[1].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain,widget.token),
+                AnswerWidget(data.length,data[i].questionDomain,data[i].questionDomain[0].answerText,data[i].questionDomain[0].weightage,0,data[i].questionDomain[0].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain,widget.token),
+                AnswerWidget(data.length,data[i].questionDomain,data[i].questionDomain[1].answerText,data[i].questionDomain[1].weightage,1,data[i].questionDomain[1].subDomain,mark1,mark2,mark3,mark4,globmarks,widget.maxdomain,widget.token),
              //   AnswerWidget(data[i].questionDomain,data[i].questionDomain[2].answerText,data[i].questionDomain[2].weightage,2,data[i].questionDomain[2].fromDomain,mark1,mark2),
 
               ],
@@ -173,7 +173,7 @@ class AnswerWidget extends StatefulWidget {
     
     QuestionList questionList;
     Data data;
-  
+  final int ln;
    final List<QuestionDomain> questionDomain;
   
   final  String answerText;
@@ -191,7 +191,7 @@ class AnswerWidget extends StatefulWidget {
    
   //final int id;
   
- AnswerWidget(this.questionDomain,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.aj,this.bj,this.glob,this.domaindata,this.usertok);
+ AnswerWidget(this.ln,this.questionDomain,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.aj,this.bj,this.glob,this.domaindata,this.usertok);
 
   @override
   _AnswerWidgetState createState() => _AnswerWidgetState();
@@ -199,7 +199,7 @@ class AnswerWidget extends StatefulWidget {
 
 class _AnswerWidgetState extends State<AnswerWidget> {
    
-   Color c = Colors.white;
+   Color c = Colors.black;
   int count = 0;
   int count1 = 0;
   List total ;
@@ -301,11 +301,11 @@ class _AnswerWidgetState extends State<AnswerWidget> {
  print(finaltotal);
  threshold = (finaltotal * 0.70).floor();
 
- if(finaltotal > threshold)
+ if(finaltotal > 1)
  {
    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: finaltotal,round: "3rd",previousround: "2nd",maximum: max,usertokenvar: widget.usertok,),),
+                     MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: finaltotal,round: "3rd",previousround: "2nd",maximum: recdata,usertokenvar: widget.usertok,),),
                    );
  }
  else
@@ -327,22 +327,6 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   
 
   
-
-
-//   if(total1 >  total2)
-//   {
-//     max = 1.toString();
-//   }
-//   else 
-//   {
-//     max = 2.toString();
-
-//   }
-//    Navigator.push(
-//                      context,
-//                      MaterialPageRoute(builder: (context) => ResDomPage(resmarks1: total1,resmarks2:total2,round: "3rd",previousround: "2nd",maximum: max,),),
-//                    );
-
  }
 
 
@@ -434,7 +418,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                {
                  _showDialog();
                }
-               if(widget.glob.length == 20)
+               if(widget.glob.length == widget.ln)
                {
                  setState(() {
                    getArraySum(widget.mj, widget.dj, widget.aj, widget.bj,widget.domaindata);
@@ -443,108 +427,9 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                
               
 
-              //  tapped = true;
-              //  count = count + 1;
-              //   count1 = count1 +1;
-              //  c = Colors.black;
-              //  if(widget.questionDomain[widget.index].fromDomain == 1 )
-              //  {
-              //    widget.mj.add("${widget.questionDomain[widget.index].weightage.toInt()}");
-              //    widget.mj.toList();
-                 
-                 
-                
-              //    print(widget.mj);
-                 
-              //  }
-              //  if(widget.questionDomain[widget.index].fromDomain == 2 )
-              //  {
-              //    widget.dj.add("${widget.questionDomain[widget.index].weightage.toInt()}");
-              //    widget.dj.toList();
-              //    print(widget.dj);
-              //   //print(widget.question[widget.index].weightage.toInt());
-              //  }
-              
+           
                
-               
-              //  if(count > 1)
-              //  {
-              //    tapped = false;
-              //     count = 0;
-                  
-              //    c = Colors.white;
-              //    if(widget.questionDomain[widget.index].fromDomain == 1 )
-              //  {
-              //    widget.mj.remove("${widget.questionDomain[widget.index].weightage.toInt()}");
-              //    widget.mj.remove("${widget.questionDomain[widget.index].weightage.toInt()}");
-
-              //    print(widget.mj);
-                 
-              //  }
-              //  if(widget.questionDomain[widget.index].fromDomain == 2 )
-              //  {
-              //    widget.dj.remove("${widget.questionDomain[widget.index].weightage.toInt()}");
-              //    widget.dj.remove("${widget.questionDomain[widget.index].weightage.toInt()}");
-              //    print(widget.dj);
-              //  }
-                
-              //  }
-              //  if(count1 > 1)
-              //  {
-                 
-              //    _showDialog( );
-              //    count1 = 0;
-                 
-                
-              //  }
-               
-              //    if (widget.mj.length == 20 || widget.dj.length == 20) {
-              //    print("${widget. questionDomain[widget.index].id}");
-              //    setState(() {
-              //     //resultmarks(widget.mj);
-              //   //resultmarks(widget.mj);
-              //   getArraySum(widget.mj,widget.dj);
-              //   //print(widget.mj.length);
-              //     //   Navigator.push(
-              //     //    context,
-              //     //    MaterialPageRoute(builder: (context) => ResPage(resmarks1: total1,resmarks2:total2,round: "2nd",previousround: "1st",),),
-              //     //  );
-
-              //    }
-              //    );
-              //  }
-               
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               
-
-
-
-
-
-
-
-                
-
-
-
-
-
+          
 
              }
             ); 
@@ -552,16 +437,20 @@ class _AnswerWidgetState extends State<AnswerWidget> {
         
           
          
-          title: 
-          new Text(
-              widget.answerText,
-          textAlign: TextAlign.center,
+          title: new Center(child: ChoiceChip(label: Text(widget.answerText,textAlign: TextAlign.center,
           style: new TextStyle(
             color: c,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold,),),selectedColor: Colors.lightBlueAccent,selected: tapped,)
           ),
+      //     new Text(
+      //         widget.answerText,
+      //     textAlign: TextAlign.center,
+      //     style: new TextStyle(
+      //       color: c,
+      //       fontWeight: FontWeight.bold,
+      //     ),
           
-      ), 
+      // ), 
     );
     
   }

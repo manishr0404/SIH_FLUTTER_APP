@@ -27,14 +27,14 @@ class _ResDomPageState extends State<ResDomPage> {
   
   @override
   void initState() {  
-    updatedommarks(widget.resmarks1,widget. resmarks2);
+    updatedommarks(widget.resmarks1);
   super.initState();    
   }
- Future<void> updatedommarks(int a,b) async
+ Future<void> updatedommarks(int a) async
   {
-      int c = a+b;
-      String domain1 = a.toString();
-      String domain2 = b.toString();
+      int c = a;
+      
+     
       String total = c.toString();
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
        Map data = {
@@ -121,7 +121,7 @@ class _ResDomPageState extends State<ResDomPage> {
                 flex: 1,
                 child: RaisedButton(
                   onPressed: () {
-                    updatedommarks(widget.resmarks1, widget.resmarks2);
+                    updatedommarks(widget.resmarks1);
                     
                     Navigator.pushReplacement(
                       context,

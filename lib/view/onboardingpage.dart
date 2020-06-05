@@ -15,33 +15,36 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
  
   
-  // Future checkFirstSeen() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool _seen = (prefs.getBool('seen') ?? false);
-  //   if (_seen) {
-  //     Navigator.of(context).pushReplacement(
-  //         new MaterialPageRoute(
-  //           builder: (context) => RootPage(auth: new Auth()), 
-  //           ),
-  //     );
-  //   } else {
-  //     prefs.setBool('seen', true);
-  //     Navigator.of(context).pushReplacement(
-  //         new MaterialPageRoute(
-  //           builder: (context) => OnboardingScreen(),
-  //         ),
-  //         );
-  //   }
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
+    if (_seen) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(
+            builder: (context) =>new MainPage()),
+            
+      );
+  
+    } else {
+      prefs.setBool('seen', true);
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(
+            builder: (context) => OnboardingScreen(),
+          ),
+          );
+    }
 
     
-  // }
-  //  @override
-  // void initState() {
-  //   super.initState();
-  //   new Timer(new Duration(seconds: 8), () {
-  //     checkFirstSeen();
-  //   });
-  // }
+  }
+   @override
+  void initState() {
+    
+     new Timer(new Duration(milliseconds: 100), () {
+       checkFirstSeen();
+     });
+      super.initState();
+
+  }
 
   
 

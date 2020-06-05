@@ -211,7 +211,7 @@ class AnswerWidget extends StatefulWidget {
 
 class _AnswerWidgetState extends State<AnswerWidget> {
 
-  Color c = Colors.white;
+  Color c = Colors.black;
   int count = 0;
   int count1 = 0;
   List total ;
@@ -420,16 +420,20 @@ class _AnswerWidgetState extends State<AnswerWidget> {
         
           
          
-          title: 
-          new Text(
-              widget.answerText,
-          textAlign: TextAlign.center,
+          title: new Center(child: ChoiceChip(label: Text(widget.answerText,textAlign: TextAlign.center,
           style: new TextStyle(
             color: c,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold,),),selectedColor: Colors.lightBlueAccent,selected: tapped,)
           ),
+      //     new Text(
+      //         widget.answerText,
+      //     textAlign: TextAlign.center,
+      //     style: new TextStyle(
+      //       color: c,
+      //       fontWeight: FontWeight.bold,
+      //     ),
           
-      ),
+      // ),
       
     
        

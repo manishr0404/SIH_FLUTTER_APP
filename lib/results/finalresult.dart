@@ -154,7 +154,7 @@ class _ResDomPageState extends State<ResDomPage> {
                     
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => MainPage(usertok: widget.token,)),   /// HAVE TO WORK ON IT FOR DYNAMIC
+                      MaterialPageRoute(builder: (context) => MainPage(usertok: widget.token,subdom: widget.maximum,)),   /// HAVE TO WORK ON IT FOR DYNAMIC
                     );
                   },
                   textColor: Colors.white,

@@ -23,22 +23,7 @@ final String token;
 
 class _ResPageState extends State<ResPage> {
 
-  // void updategenmarks(int a,b) async {
-  //    int c = a + b;
-  //     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   Map data = {
-  //     'Technology': a,
-  //     'Marketing': b,
-  //   };
-  //    var jsonResponse = null;
-  //    var response = await http.post(
-  //       "https://harshraj.pythonanywhere.com/account/login/", body: data,headers: {HttpHeaders.authorizationHeader: "token ${widget.resmarks1}"});
-  //   if (response.statusCode == 200) {
-  //     jsonResponse = json.decode(response.body);
-  //     print('Response status: ${response.statusCode}');
-  //     print('Response body: ${response.body}');
-     
-  // }
+  
   
 
   @override

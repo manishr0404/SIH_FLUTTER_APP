@@ -32,8 +32,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-    MainPage({Key key, this.usertok}) : super(key: key);
+    MainPage({Key key, this.usertok,this.dom,this.subdom,this.rate}) : super(key: key);
    final String usertok;
+   final String dom;
+   final String subdom;
+   final String rate;
   
   @override
   _MainPageState createState() => _MainPageState();
@@ -78,7 +81,7 @@ class _MainPageState extends State<MainPage> {
         buttonBackgroundColor: Colors.white,
         backgroundColor: Colors.greenAccent,
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
           setState(() {
             _page = index;
@@ -132,7 +135,7 @@ class _MainPageState extends State<MainPage> {
               title: new Text("Profile(IN PROGRESS)"),
               trailing: new Icon(Icons.person),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                builder: (BuildContext context) => ProfilePage(),
+                builder: (BuildContext context) => ProfilePage(subdomain: widget.subdom,),
               )),
             ),
             new Divider(),

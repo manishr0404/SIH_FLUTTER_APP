@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/jobs/general_jobs_model.dart';
+import 'package:flutter_app/view/jobproposal.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 
 
 class SearchPage extends StatefulWidget {
- SearchPage({Key key, this.title}) : super(key: key);
+ SearchPage({Key key, this.title,this.usertok}) : super(key: key);
 final String title;
+final String usertok;
 
   @override
   _SearchPageState createState() => new _SearchPageState();
@@ -195,7 +197,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
 
             children: <Widget>[
-              JobDetail(data[i].jobDescreption, data[i].minimumExperience, data[i].id),
+              JobDetail(data[i].jobDescreption, data[i].minimumExperience, data[i].id,widget.title),
 //              AnswerWidget(questionList[i].question,questionList[i].question[0].answerText,questionList[i].question[0].weightage,0,questionList[i].question[0].fromDomain),
 //              AnswerWidget(questionList[i].question,questionList[i].question[1].answerText,questionList[i].question[1].weightage,1,questionList[i].question[1].fromDomain),
               // AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[2].weightage,2,questionList[i].question[1].fromDomain),
@@ -221,12 +223,13 @@ class JobDetail extends StatefulWidget {
   final  String jobdescription;
   final int minimum_exp;
   final int id;
+  final String usertok;
   //final int domain;
 
 
   //final int id;
 
-  JobDetail(this.jobdescription,this.minimum_exp,this.id,);
+  JobDetail(this.jobdescription,this.minimum_exp,this.id,this.usertok);
 
   @override
   _JobDetailState createState() => _JobDetailState();
@@ -295,7 +298,7 @@ class _JobDetailState extends State<JobDetail> {
         subtitle:  RaisedButton(
 
           onPressed: () {
-            Text("Apply Now");
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => JobProposal(token: widget.usertok,id: widget.id.toString(),)));
           },
           textColor: Colors.white,
           padding:  EdgeInsets.all(0.0),

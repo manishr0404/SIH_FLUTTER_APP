@@ -1,19 +1,28 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app/main.dart';
-import 'dashboard.dart';
-import 'package:flutter_app/jobs/search.dart';
 
 class ProfilePage extends StatefulWidget {
+   ProfilePage({Key key, this.domain,this.subdomain,this.rating}) : super(key: key);
+final String domain;
+final String subdomain;
+final String rating;
   @override
   MapScreenState createState() => MapScreenState();
 }
 
 class MapScreenState extends State<ProfilePage>
+
     with SingleTickerProviderStateMixin {
+  
+  final GlobalKey<ScaffoldState> _scaffoldstate = new GlobalKey<ScaffoldState>();
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController addressController = new TextEditingController();
   
+ 
 
   @override
   void initState() {
@@ -40,6 +49,7 @@ class MapScreenState extends State<ProfilePage>
                             child: new Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
+                                
                                 new Icon(
                                   Icons.arrow_back_ios,
                                   color: Colors.black,
@@ -132,6 +142,7 @@ class MapScreenState extends State<ProfilePage>
                                       _status ? _getEditIcon() : new Container(),
                                     ],
                                   )
+                                 
                                 ],
                               )),
                           Padding(
@@ -144,7 +155,7 @@ class MapScreenState extends State<ProfilePage>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      new Text(
+                                     new Text(
                                         'Name',
                                         style: TextStyle(
                                             fontSize: 16.0,
@@ -161,7 +172,9 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   new Flexible(
-                                    child: new TextField(
+                                    child: 
+                                    new TextField(
+                                      controller: nameController,
                                       decoration: const InputDecoration(
                                         hintText: "Enter Your Name",
                                       ),
@@ -170,7 +183,9 @@ class MapScreenState extends State<ProfilePage>
 
                                     ),
                                   ),
-                                ],
+                                  
+
+                                ]
                               )),
                           Padding(
                               padding: EdgeInsets.only(
@@ -183,7 +198,7 @@ class MapScreenState extends State<ProfilePage>
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       new Text(
-                                        'Email ID',
+                                        'Address',
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold),
@@ -200,8 +215,9 @@ class MapScreenState extends State<ProfilePage>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: addressController,
                                       decoration: const InputDecoration(
-                                          hintText: "Enter Email ID"),
+                                          hintText: "Enter Your Address"),
                                       enabled: !_status,
                                     ),
                                   ),
@@ -218,7 +234,7 @@ class MapScreenState extends State<ProfilePage>
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       new Text(
-                                        'Mobile',
+                                        'Resume',
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold),
@@ -233,13 +249,14 @@ class MapScreenState extends State<ProfilePage>
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  new Flexible(
-                                    child: new TextField(
-                                      decoration: const InputDecoration(
-                                          hintText: "Enter Mobile Number"),
-                                      enabled: !_status,
-                                    ),
-                                  ),
+                                 RaisedButton(
+                                 child: Text("upload"),
+                                 onPressed: (){
+                               //  _uploadFile(_file);
+      
+                                 })
+
+
                                 ],
                               )),
                           Padding(
@@ -252,55 +269,90 @@ class MapScreenState extends State<ProfilePage>
                                   Expanded(
                                     child: Container(
                                       child: new Text(
-                                        'Pin Code',
+                                        'Apt Domain:',
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    flex: 2,
+                                   
                                   ),
-                                  Expanded(
-                                    child: Container(
-                                      child: new Text(
-                                        'State',
-                                        style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    flex: 2,
-                                  ),
+                                
+                                 
                                 ],
                               )),
-                          Padding(
+                               Padding(
                               padding: EdgeInsets.only(
-                                  left: 25.0, right: 25.0, top: 2.0),
+                                  left: 25.0, right: 25.0, top: 25.0),
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
-                                  Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 10.0),
-                                      child: new TextField(
-                                        decoration: const InputDecoration(
-                                            hintText: "Enter Pin Code"),
-                                        enabled: !_status,
+                                  Expanded(
+                                    child: Container(
+                                      child: new Text(
+                                        'Apt SubDoamin: ${widget.subdomain}',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    flex: 2,
+                                   
                                   ),
-                                  Flexible(
-                                    child: new TextField(
-                                      decoration: const InputDecoration(
-                                          hintText: "Enter State"),
-                                      enabled: !_status,
-                                    ),
-                                    flex: 2,
-                                  ),
+                                
+                                 
                                 ],
                               )),
+                               Padding(
+                              padding: EdgeInsets.only(
+                                  left: 25.0, right: 25.0, top: 25.0),
+                              child: new Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      child: new Text(
+                                        'Job Recommended in SubDomain :${widget.subdomain}',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                   
+                                  ),
+                                
+                                 
+                                ],
+                              )),
+                          // Padding(
+                          //     padding: EdgeInsets.only(
+                          //         left: 25.0, right: 25.0, top: 2.0),
+                          //     child: new Row(
+                          //       mainAxisSize: MainAxisSize.max,
+                          //       mainAxisAlignment: MainAxisAlignment.start,
+                          //       children: <Widget>[
+                          //         Flexible(
+                          //           child: Padding(
+                          //             padding: EdgeInsets.only(right: 10.0),
+                          //             child: new TextField(
+                          //               decoration: const InputDecoration(
+                          //                   hintText: "Enter Pin Code"),
+                          //               enabled: !_status,
+                          //             ),
+                          //           ),
+                          //           flex: 2,
+                          //         ),
+                          //         Flexible(
+                          //           child: new TextField(
+                          //             decoration: const InputDecoration(
+                          //                 hintText: "Enter State"),
+                          //             enabled: !_status,
+                          //           ),
+                          //           flex: 2,
+                          //         ),
+                          //       ],
+                          //     )),
                           !_status ? _getActionButtons() : new Container(),
                         ],
                       ),
@@ -335,11 +387,11 @@ class MapScreenState extends State<ProfilePage>
                     child: new Text("Save"),
                     textColor: Colors.white,
                     color: Colors.green,
-                    onPressed: () {
+                    onPressed:nameController.text == "" || addressController.text == "" ? null :
+                     () {
                       setState(() {
                         _status = true;
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        Navigator.pop(context);
+                      Navigator.pop(context);
                          
                       });
                     },
@@ -360,7 +412,7 @@ class MapScreenState extends State<ProfilePage>
                     onPressed: () {
                       setState(() {
                         _status = true;
-                        FocusScope.of(context).requestFocus(new FocusNode());
+                       // FocusScope.of(context).requestFocus(new FocusNode());
                         Navigator.pop(context);
                       });
                     },

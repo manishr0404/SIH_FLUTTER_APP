@@ -1,15 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/rendering.dart';
-import 'package:flutter_app/Total/general_total.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/questions/model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:dio/dio.dart';
-import './domain_specific.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter_app/results/genresult.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,6 +21,8 @@ final String usertokvar;
 class _HomePageState extends State<HomePage> {
   var mark1 = new List();
   var mark2 = new List();
+  var overallgentotal = new List();
+ 
   
  
  
@@ -40,41 +40,6 @@ class _HomePageState extends State<HomePage> {
     quiz = General.fromJson(decRes);
     questionList = quiz.questionList;  
   }
-
-//  Widget choicebutton(String k) {
-//     return Padding(
-//       padding: EdgeInsets.symmetric(
-//         vertical: 10.0,
-//         horizontal:10.0,
-//       ),
-      
-//       child: MaterialButton(
-//         onPressed:(){
-//          setState(() {
-           
-//          });
-//         },
-//         child:Text(
-//           k,
-//           style: TextStyle(
-//             color: Colors.black,
-//             fontFamily: "Alike",
-//             fontSize: 16.0,
-//           ),
-//           maxLines: 10,
-//         ),
-//         color: Colors.white,
-//         focusColor: Colors.yellow,
-//         splashColor: Colors.greenAccent[400],
-//         highlightColor: Colors.greenAccent[400],
-//         disabledColor: Colors.yellow,
-//         minWidth: 200.0,
-//         height: 45.0,
-//         shape:
-//             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-//       ),
-//     );
-//   }
 
 
   @override
@@ -104,8 +69,7 @@ class _HomePageState extends State<HomePage> {
                     snapshot
                 );
                 return questionsList();
-                // Container(height:10.0,width:20.0);
-                //questionsList();
+                
                 
             }
             return null;
@@ -158,9 +122,11 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding:  EdgeInsets.all(0.0),
           child: ExpansionTile(
+            
             title: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
+
               
               children: <Widget>[
                
@@ -216,9 +182,9 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                  
                 
-                AnswerWidget(questionList[i].question,questionList[i].question[0].answerText,questionList[i].question[0].weightage,0,questionList[i].question[0].fromDomain,mark1,mark2,total1,widget.usertokvar),
-                AnswerWidget(questionList[i].question,questionList[i].question[1].answerText,questionList[i].question[1].weightage,1,questionList[i].question[1].fromDomain,mark1,mark2,total1,widget.usertokvar),
-                AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[2].weightage,2,questionList[i].question[2].fromDomain,mark1,mark2,total1,widget.usertokvar),
+                AnswerWidget(questionList.length,questionList[i].question,questionList[i].question[0].answerText,questionList[i].question[0].weightage,0,questionList[i].question[0].fromDomain,mark1,mark2,total1,widget.usertokvar,overallgentotal),
+                AnswerWidget(questionList.length,questionList[i].question,questionList[i].question[1].answerText,questionList[i].question[1].weightage,1,questionList[i].question[1].fromDomain,mark1,mark2,total1,widget.usertokvar,overallgentotal),
+                AnswerWidget(questionList.length,questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[2].weightage,2,questionList[i].question[2].fromDomain,mark1,mark2,total1,widget.usertokvar,overallgentotal),
                 //AnswerWidget(questionList[i].question,questionList[i].question[2].answerText,questionList[i].question[3].weightage,3,questionList[i].question[3].fromDomain),
                  
 
@@ -237,7 +203,7 @@ class _HomePageState extends State<HomePage> {
 
   //           })
   //           .toList(),         //LECASA DE Pappel
-
+         
           ),
         ),
       ),
@@ -254,8 +220,8 @@ class AnswerWidget extends StatefulWidget {
 
    
     
-    QuestionList questionList;
-  
+    
+  final int length;
    final List<Question> question;
   
   final String answerText;
@@ -266,19 +232,20 @@ class AnswerWidget extends StatefulWidget {
   final List dj;
   final int tot1;
   final String tokenvariable;
+  final List overaltotal;
   
  
    
   //final int id;
   
- AnswerWidget(this.question,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.tot1,this.tokenvariable);
+ AnswerWidget(this.length,this.question,this.answerText,this.weightage,this.index,this.domain,this.mj,this.dj,this.tot1,this.tokenvariable,this.overaltotal);
 
   @override
   _AnswerWidgetState createState() => _AnswerWidgetState();
 }
 
 class _AnswerWidgetState extends State<AnswerWidget> {
-  Color c = Colors.white;
+  Color c = Colors.black;
   int count = 0;
   int count1 = 0;
   List total ;
@@ -357,79 +324,64 @@ class _AnswerWidgetState extends State<AnswerWidget> {
            onTap: (){
            
              setState(() {
-               tapped = true;
-               count = count + 1;
-                count1 = count1 +1;
-               c = Colors.black;
-               if(widget.question[widget.index].fromDomain == 1 )
+               if(tapped == false)
                {
-                 widget.mj.add("${widget.question[widget.index].weightage.toInt()}");
-                 widget.mj.toList();
-                 
-                 
-                
-                 print(widget.mj);
-                 
-               }
-               if(widget.question[widget.index].fromDomain == 2 )
-               {
-                 widget.dj.add("${widget.question[widget.index].weightage.toInt()}");
-                 widget.dj.toList();
-                 print(widget.dj);
-                
-               }
-              
-               
-               
-               if(count > 1)
-               {
-                 tapped = false;
-                  count = 0;
-                  
-                 c = Colors.white;
-                 if(widget.question[widget.index].fromDomain == 1 )
-               {
-                 widget.mj.remove("${widget.question[widget.index].weightage.toInt()}");
-                 widget.mj.remove("${widget.question[widget.index].weightage.toInt()}");
 
-                 print(widget.mj);
-                 
-               }
-               if(widget.question[widget.index].fromDomain == 2 )
-               {
-                 widget.dj.remove("${widget.question[widget.index].weightage.toInt()}");
-                 widget.dj.remove("${widget.question[widget.index].weightage.toInt()}");
-                 print(widget.dj);
-               }
-                
-               }
-               if(count1 > 1)
-               {
-                 
-                 _showDialog( );
-                 count1 = 0;
-                 
-                
-               }
+                 tapped = true;
+                 c = Colors.black;
+                 print("tapped");
+                 count = count + 1;
+                 widget.overaltotal.add("${widget.question[widget.index].weightage.toInt()}");
                
-                 if (widget. question[widget.index].id == 156 ||
-                   widget. question[widget.index].id == 157) {
-                 print("${widget. question[widget.index].id}");
-                 setState(() {
-                  //resultmarks(widget.mj);
-                //resultmarks(widget.mj);
-                getArraySum(widget.mj,widget.dj);
-                //print(widget.mj.length);
-                  //   Navigator.push(
-                  //    context,
-                  //    MaterialPageRoute(builder: (context) => ResPage(resmarks1: total1,resmarks2:total2,round: "2nd",previousround: "1st",),),
-                  //  );
+
+                 if(widget.question[widget.index].fromDomain == 1 )
+                 {
+                   widget.mj.add("${widget.question[widget.index].weightage.toInt()}");
+                   widget.mj.toList();
+                   print(widget.mj);
+                   print("lIST 1");
 
                  }
-                 );
+                 else if(widget.question[widget.index].fromDomain == 2 )
+                 {
+                   widget.dj.add("${widget.question[widget.index].weightage.toInt()}");
+                   print(widget.dj);
+                   print("LIST 2");
+                 }
                }
-               
-                
+               else
+               {
+                  tapped = false;
+                 c = Colors.black;
+                 print("untapped");
+                 count = count - 1;
+                 
+                 widget.overaltotal.remove("${widget.question[widget.index].weightage.toInt()}");
+                   if(widget.question[widget.index].fromDomain == 1 )
+                 {
+                   widget.mj.remove("${widget.question[widget.index].weightage.toInt()}");
+                   print(widget.mj);
+                   print("LIST 1 ELEMENT REMOVED");
+                   
+                 }
+                 else if(widget.question[widget.index].fromDomain == 2)
+                 {
+                   widget.dj.remove("${widget.question[widget.index].weightage.toInt()}");
+                   print(widget.dj);
+                   print("LIST 2 ELEMENT REMOVED");
+                 }
+               }
+              if(widget.overaltotal.length == widget.length)
+               {
+                 setState(() {
+                   getArraySum(widget.mj,widget.dj);
+                 });
+               }
+                 
+                 if(count > 1)
+               {
+                 _showDialog();
+               }
 
                 }
               );
@@ -440,15 +392,18 @@ class _AnswerWidgetState extends State<AnswerWidget> {
         
           
          
-          title: 
-          new Text(
-              widget.answerText,
-          textAlign: TextAlign.center,
+          title: new Center(child: ChoiceChip(label: Text(widget.answerText,textAlign: TextAlign.center,
           style: new TextStyle(
             color: c,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold,),),selectedColor: Colors.lightBlueAccent,selected: tapped,)
+          // new Text(
+          //     widget.answerText,
+          // textAlign: TextAlign.center,
+          // style: new TextStyle(
+          //   color: c,
+          //   fontWeight: FontWeight.bold,
             
-          ),
+          // ),
          
     ),
     );
